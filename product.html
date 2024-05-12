@@ -57,12 +57,6 @@
                     <a class="btn-lg-square text-primary border-end rounded-0" href=""><i class="fab fa-linkedin-in"></i></a>
                     <a class="btn-lg-square text-primary pe-0" href=""><i class="fab fa-instagram"></i></a>
 
-                    <button type="button" class="new-minicart-button" aria-label="Abrir carro de compras">
-                        <i class="jumbo-icon-header-cart"></i>
-                        <div class="new-minicart-cartQty">
-                            <span class="new-products-quantity-span-v2 active cart-count">0</span>
-                        </div>
-                    </button>
                 </div>
             </div>
         </div>
@@ -89,7 +83,7 @@
                     <div class="dropdown-menu m-0">
                         <a href="team.html" class="dropdown-item">Nuestro Equipo</a>
                         <a href="testimonial.html" class="dropdown-item">Testimonios</a>
-                        <a href="404.html" class="dropdown-item">404 Page</a>
+                        <a href="Ventas.html" class="dropdown-item">Portal de ventas</a>
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contacto</a>
@@ -145,7 +139,7 @@
             </div>
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="text-primary text-uppercase mb-2">// Prudctos de Bakery </p>
-                <h1 class="display-6 mb-4">Sientase libre de probar nuestros productos, hechos con amor</h1>
+                <h1 class="display-6 mb-4">Algunos de los productos que ofrecemos</h1>
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -158,10 +152,10 @@
                         <div class="position-relative mt-auto">
                             <img class="img-fluid" src="img/product-1.jpg" alt="">
                             <div class="product-overlay">
-                                <!-- Agregar botón para agregar este producto al carrito -->
-                                <button class="btn btn-lg-square btn-outline-light rounded-circle add-to-cart-btn" data-product-id="1">
-                                    <i class="fa fa-cart-plus text-primary"></i> Agregar al carrito
-                                </button>
+                                <!-- Agregar botón que redirija a Muffin.html -->
+                                <a href="Ventas.html" class="btn btn-lg-square btn-outline-light rounded-circle">
+                                    <i class="fa fa-eye text-primary"></i> Ver más
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -176,10 +170,10 @@
                         <div class="position-relative mt-auto">
                             <img class="img-fluid" src="img/product-2.jpg" alt="">
                             <div class="product-overlay">
-                                <!-- Agregar botón para agregar este producto al carrito -->
-                                <button class="btn btn-lg-square btn-outline-light rounded-circle add-to-cart-btn" data-product-id="2">
-                                    <i class="fa fa-cart-plus text-primary"></i> Agregar al carrito
-                                </button>
+                                 <!-- Agregar botón que redirija a Pan.html -->
+                                 <a href="Ventas.html" class="btn btn-lg-square btn-outline-light rounded-circle">
+                                    <i class="fa fa-eye text-primary"></i> Ver más
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -194,10 +188,10 @@
                         <div class="position-relative mt-auto">
                             <img class="img-fluid" src="img/product-3.jpg" alt="">
                             <div class="product-overlay">
-                                <!-- Agregar botón para agregar este producto al carrito -->
-                                <button class="btn btn-lg-square btn-outline-light rounded-circle add-to-cart-btn" data-product-id="3">
-                                    <i class="fa fa-cart-plus text-primary"></i> Agregar al carrito
-                                </button>
+                                <!-- Agregar botón que redirija a Galletitas.html -->
+                                <a href="Ventas.html" class="btn btn-lg-square btn-outline-light rounded-circle">
+                                    <i class="fa fa-eye text-primary"></i> Ver más
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -297,116 +291,7 @@
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 
-<script>
-    // Variables globales para almacenar el detalle del carrito
-    let cartDetails = [];
-    let totalAmount = 0;
-
-    // Esta función maneja el evento click del botón Agregar al carrito
-    $(document).on('click', '.add-to-cart-btn', function(e) {
-        e.preventDefault();
-        var productId = $(this).data('product-id'); // Obtener el ID del producto
-        var productName = $(this).parents('.product-item').find('h3').text(); // Obtener el nombre del producto
-        var productPrice = $(this).parents('.product-item').find('.border-primary').first().text().trim(); // Obtener el precio del producto
-        addToCart(productId, productName, productPrice);
-    });
-
-    // Esta función agrega el producto al carrito y actualiza el contador del carrito
-    function addToCart(productId, productName, productPrice) {
-        // Verificar que productPrice no esté vacío y tenga el formato correcto
-        if (productPrice && typeof productPrice === 'string' && productPrice.startsWith('$')) {
-            // Obtener el valor numérico del precio
-            var numericPrice = parseFloat(productPrice.substring(1));
-            if (!isNaN(numericPrice)) {
-                // Producto agregado al carrito
-                alert('Producto agregado al carrito: ' + productName);
-
-                // Actualizar el contador del carrito
-                var currentCount = parseInt($('.cart-count').text());
-                $('.cart-count').text(currentCount + 1);
-
-                // Actualizar el detalle del carrito y el total a pagar
-                cartDetails.push({ name: productName, price: numericPrice });
-                totalAmount += numericPrice;
-                updateCartDetail();
-                return;
-            }
-        }
-        // Si hay algún error, mostrar un mensaje de alerta
-        alert('Error al agregar el producto al carrito');
-    }
-
-// Esta función actualiza el detalle del carrito
-function updateCartDetail() {
-    var detailContainer = $('#cartModalBody'); // Obtener el contenedor del cuerpo de la ventana modal
-    detailContainer.empty(); // Vaciar el contenido existente
-
-    cartDetails.forEach(function(item, index) {
-        var itemText = (index + 1) + '. ' + item.name + ' - ' + item.price + ' ';
-        var removeButton = $('<button>').addClass('btn btn-sm btn-danger remove-from-cart-btn') // Utilizar btn-sm para hacer el botón más pequeño
-                                         .attr('data-index', index)
-                                         .text('Eliminar'); // Crear el botón de eliminar
-        var itemDiv = $('<div>').html(itemText).append(removeButton); // Crear un div para el elemento del carrito
-        detailContainer.append(itemDiv); // Agregar el div al contenedor
-    });
-
-    var total = 'Total a pagar: $' + totalAmount.toFixed(2).replace(/\.?0+$/, ''); // Eliminar los decimales si son cero
-    var totalDiv = $('<div>').text(total); // Crear un div para el total
-    detailContainer.append(totalDiv); // Agregar el div del total al contenedor
-
-    $('#cartModal').modal('show'); // Mostrar la ventana modal
-}
-
-
-    // Esta función maneja el evento click del botón del carrito
-    $('.new-minicart-button').on('click', function() {
-        // Aquí puedes agregar tu lógica para mostrar el resumen de la compra
-        // En este ejemplo, simplemente mostramos una alerta con el detalle del carrito y el total a pagar
-        if (cartDetails.length === 0) {
-            alert('Tu carrito de compras está vacío');
-        } else {
-            updateCartDetail();
-        }
-    });
-
-    // Esta función maneja el evento click del botón Eliminar del carrito
-    $(document).on('click', '.remove-from-cart-btn', function(e) {
-        e.preventDefault();
-        var index = $(this).data('index'); // Obtener el índice del producto a eliminar
-        var removedItem = cartDetails[index];
-        if (removedItem) {
-            // Eliminar el producto del carrito
-            cartDetails.splice(index, 1);
-            totalAmount -= removedItem.price;
-            // Actualizar el contador del carrito
-            var currentCount = parseInt($('.cart-count').text());
-            $('.cart-count').text(currentCount - 1);
-            // Actualizar el detalle del carrito y el total a pagar
-            updateCartDetail();
-        }
-    });
 </script>
-
-
-
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="cartModalLabel">Detalle del carrito</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="cartModalBody">
-          <!-- Aquí se mostrará el contenido del carrito -->
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
 
 </body>
 

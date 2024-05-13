@@ -119,7 +119,4 @@ $('.new-minicart-button').click(function () {
     $('#cart-summary').toggleClass('show');
 });
 
-
-
-
 })(jQuery);

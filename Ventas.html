@@ -472,13 +472,12 @@ function updateCart() {
     // Add event listeners to cart buttons
     document.addEventListener("DOMContentLoaded", function () {
         // Add event listeners to "Agregar al carrito" buttons
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function () {
-                var productName = this.parentElement.querySelector('.card-title').innerText;
-                var price = parseFloat(this.parentElement.querySelector('.card-text').innerText.replace(/[^\d.]/g, ''));
-                addToCart(productName, price);
-            });
-        });
+        $('.add-to-cart').on('click', function () {
+    var productName = $(this).closest('.card').find('.card-title').text();
+    var price = parseFloat($(this).closest('.card').find('.card-text').text().replace(/[^\d.]/g, ''));
+    addToCart(productName, price);
+});
+
 
 
        // Add event listeners to "Aumentar cantidad" buttons

@@ -119,7 +119,20 @@
     <!-- Page Header End -->
 
 
-
+<!-- HTML para el modal de anuncio -->
+<div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="announcementModalLabel">¡Producto agregado!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Has agregado un producto a tu carrito.
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- Botón "Ver carrito" con icono de carrito -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal">
@@ -159,41 +172,38 @@
 </div>
 
 
-
-
-
-    <!-- Products Start -->
+<!-- Products Start -->
 <div class="container py-6 wow fadeInUp" data-wow-delay="0.1s">
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <!-- Pan -->
+<!-- Pan -->
+<div class="col">
+    <div class="card h-100">
+        <img src="C:\Users\manu_\OneDrive\Escritorio\baker-1.0.0\baker-1.0.0\img\Pan de completo integral.png" class="card-img-top img-fluid" alt="Pan de completo integral" style="height: 300px; object-fit: cover;">
+        <div class="card-body">
+            <h5 class="card-title">Pan de completo integral</h5>
+            <p class="card-text">Pan integral de completo, $1500/kg</p>
+            <!-- Dentro del div del producto -->
+            <p>Stock disponible: <span id="pan_completo_integral-stock-stock"></span></p>
+            <!-- Modificamos el botón para mostrar el stock disponible -->
+            <button class="btn btn-primary add-to-cart" data-productName="Pan de completo integral" data-price="1500">
+                Agregar al carrito
+            </button>
+        </div>
+    </div>
+</div>
         <div class="col">
             <div class="card h-100">
-                <img src="C:\Users\manu_\OneDrive\Escritorio\baker-1.0.0\baker-1.0.0\img\Pan de completo integral.png" class="card-img-top img-fluid" alt="Pan de completo integral" style="height: 300px; object-fit: cover;">
+                <img src="C:\Users\manu_\OneDrive\Escritorio\baker-1.0.0\baker-1.0.0\img\Hallulla integral.png" class="card-img-top img-fluid" alt="Pan Hallulla integral" style="height: 300px; object-fit: cover;">
                 <div class="card-body">
-                    <h5 class="card-title">Pan de completo integral</h5>
-                    <p class="card-text">Pan integral de completo, $1500/kg</p>
+                    <h5 class="card-title">Pan Hallulla integral</h5>
+                    <p class="card-text">Pan hallulla integral, $1200/kg</p>
                     <!-- Mostrar stock -->
-                    <p>Stock disponible: <span id="pan_completo_integral-stock"></span></p>
+                    <p>Stock disponible: <span id="Pan Hallulla integral-stock-stock"></span></p>
                     <!-- Botón de "agregar al carrito" -->
-                    <button class="btn btn-primary add-to-cart" data-productName="Pan de completo integral" data-price="1500">Agregar al carrito</button>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="C:\Users\manu_\OneDrive\Escritorio\baker-1.0.0\baker-1.0.0\img\Hallulla integral.png" class="card-img-top img-fluid" alt="Pan Hallulla integral" style="height: 300px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Pan Hallulla integral</h5>
-                        <p class="card-text">Pan hallulla integral, $1200/kg</p>
-                        <!-- Mostrar stock -->
-                    <p>Stock disponible: <span id="pan Hallulla integral-stock"></span></p>
-                <!-- Botón de "agregar al carrito" -->
                     <button class="btn btn-primary add-to-cart" data-productName="Pan Hallulla integral" data-price="1200">Agregar al carrito</button>
-                    </div>
                 </div>
             </div>
+        </div>
             <div class="col">
                 <div class="card h-100">
                     <img src="C:\Users\manu_\OneDrive\Escritorio\baker-1.0.0\baker-1.0.0\img\Pan de molde integral.png" class="card-img-top img-fluid" alt="Pan de molde integral" style="height: 300px; object-fit: cover;">
@@ -228,9 +238,9 @@
                         <h5 class="card-title">Muffin de vainilla chips</h5>
                         <p class="card-text">Muffin de vainilla con chips de chocolate, $1500</p>
                         <!-- Mostrar stock -->
-                    <p>Stock disponible: <span id="Muffin de vainilla-stock"></span></p>
-                <!-- Botón de "agregar al carrito" -->
-                    <button class="btn btn-primary add-to-cart" data-productName="Muffin de vainilla" data-price="1500">Agregar al carrito</button>
+                        <p>Stock disponible: <span id="Muffin de vainilla chips-stock-stock"></span></p>
+                        <!-- Botón de "agregar al carrito" -->
+                        <button class="btn btn-primary add-to-cart" data-productName="Muffin de vainilla" data-price="1500">Agregar al carrito</button>
                     </div>
                 </div>
             </div>
@@ -366,31 +376,47 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-   <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/counterup/counterup.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+ <!-- JavaScript Libraries -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+ <script src="lib/wow/wow.min.js"></script>
+ <script src="lib/easing/easing.min.js"></script>
+ <script src="lib/waypoints/waypoints.min.js"></script>
+ <script src="lib/counterup/counterup.min.js"></script>
+ <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-<!-- Template Javascript -->
-<script src="js/main.js"></script>
+ <!-- Template Javascript -->
+ <script src="js/main.js"></script>
 
-<script>
-    // Cart object to store selected products
+ <script>
+    // Objeto para almacenar los productos seleccionados en el carrito
     var cart = [];
 
-    // Function to add a product to the cart
+    // Función para mostrar el modal de anuncio
+    function showAnnouncementModal() {
+        var modal = new bootstrap.Modal(document.getElementById('announcementModal'), {
+            keyboard: false
+        });
+        modal.show();
+    }
+
+    // Función para agregar un producto al carrito
     function addToCart(productName, price) {
         var existingProduct = cart.find(product => product.name === productName);
         if (existingProduct) {
-            existingProduct.quantity += 1;
+            // Verificar si hay suficiente stock disponible
+            var stockElement = document.getElementById(productName + '-stock');
+            var stock = parseInt(stockElement.innerText);
+            if (existingProduct.quantity < stock) {
+                existingProduct.quantity += 1;
+            } else {
+                alert('¡No hay suficiente stock disponible!');
+            }
         } else {
             cart.push({ name: productName, price: price, quantity: 1 });
         }
         updateCart();
+        showAnnouncementModal();
     }
 
     // Function to remove a product from the cart
@@ -417,26 +443,31 @@
         updateCart();
     }
 
-    // Function to update the cart UI
-    function updateCart() {
-        var cartItemsElement = document.getElementById('cart-items');
-        var cartTotalAmountElement = document.getElementById('cart-total-amount');
-        var totalAmount = 0;
-        cartItemsElement.innerHTML = ''; // Clear previous cart items
-        cart.forEach(product => {
-            var item = document.createElement('li');
-            item.classList.add('list-group-item');
-            var quantityButtons = createQuantityButtons(product.name);
-            var removeButton = createRemoveButton(product.name);
-            item.innerText = product.name + ' x ' + product.quantity + ' - $' + (product.price * product.quantity);
-            item.dataset.productname = product.name;
-            item.appendChild(quantityButtons);
-            item.appendChild(removeButton);
-            cartItemsElement.appendChild(item);
-            totalAmount += product.price * product.quantity;
-        });
-        cartTotalAmountElement.innerText = '$' + totalAmount;
-    }
+// Función para actualizar la interfaz del carrito
+function updateCart() {
+    var cartItemsElement = document.getElementById('cart-items');
+    var cartTotalAmountElement = document.getElementById('cart-total-amount');
+    var totalAmount = 0;
+    cartItemsElement.innerHTML = ''; // Limpiar elementos previos del carrito
+    cart.forEach(product => {
+        var item = document.createElement('li');
+        item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3');
+        var itemName = document.createElement('span');
+        itemName.textContent = product.name + ' x ' + product.quantity;
+        var itemPrice = document.createElement('span');
+        itemPrice.textContent = '$' + (product.price * product.quantity);
+        var quantityButtons = createQuantityButtons(product.name);
+        var buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('d-flex', 'gap-2', 'align-items-center');
+        buttonContainer.appendChild(quantityButtons);
+        item.appendChild(itemName);
+        item.appendChild(itemPrice);
+        cartItemsElement.appendChild(item);
+        cartItemsElement.appendChild(buttonContainer); // Agregar los botones debajo de cada producto
+        totalAmount += product.price * product.quantity;
+    });
+    cartTotalAmountElement.innerText = '$' + totalAmount;
+}
 
     // Add event listeners to cart buttons
     document.addEventListener("DOMContentLoaded", function () {
@@ -449,29 +480,31 @@
             });
         });
 
-        // Add event listeners to "Eliminar del carrito" buttons
-        document.querySelectorAll('.remove-from-cart').forEach(button => {
-            button.addEventListener('click', function () {
-                var productName = this.dataset.productname;
-                removeFromCart(productName);
-            });
-        });
 
-        // Add event listeners to "Aumentar cantidad" buttons
-        document.querySelectorAll('.increase-quantity').forEach(button => {
-            button.addEventListener('click', function () {
-                var productName = this.dataset.productname;
-                increaseQuantity(productName);
-            });
-        });
+       // Add event listeners to "Aumentar cantidad" buttons
+document.querySelectorAll('.increase-quantity').forEach(button => {
+    button.addEventListener('click', function () {
+        var productName = this.dataset.productname;
+        increaseQuantity(productName);
+    });
+});
 
-        // Add event listeners to "Disminuir cantidad" buttons
-        document.querySelectorAll('.decrease-quantity').forEach(button => {
-            button.addEventListener('click', function () {
-                var productName = this.dataset.productname;
-                decreaseQuantity(productName);
-            });
-        });
+// Add event listeners to "Disminuir cantidad" buttons
+document.querySelectorAll('.decrease-quantity').forEach(button => {
+    button.addEventListener('click', function () {
+        var productName = this.dataset.productname;
+        decreaseQuantity(productName);
+    });
+});
+
+// Add event listeners to "Eliminar del carrito" buttons
+document.querySelectorAll('.remove-from-cart').forEach(button => {
+    button.addEventListener('click', function () {
+        var productName = this.dataset.productname;
+        removeFromCart(productName);
+    });
+});
+
 
         // Show/hide cart
         var cartButton = document.getElementById('checkout-btn');
@@ -481,91 +514,70 @@
         });
     });
 
-    // Function to create quantity buttons for a given product
-    function createQuantityButtons(productName) {
-        var quantityButtons = document.createElement('div');
-        quantityButtons.classList.add('quantity-buttons');
-        var increaseButton = document.createElement('button');
-        increaseButton.innerText = '+';
-        increaseButton.classList.add('btn', 'btn-sm', 'btn-outline-primary', 'increase-quantity');
-        increaseButton.dataset.productname = productName;
-        increaseButton.addEventListener('click', function () {
-            increaseQuantity(productName);
-        });
-        var decreaseButton = document.createElement('button');
-        decreaseButton.innerText = '-';
-        decreaseButton.classList.add('btn', 'btn-sm', 'btn-outline-primary', 'decrease-quantity');
-        decreaseButton.dataset.productname = productName;
-        decreaseButton.addEventListener('click', function () {
-            decreaseQuantity(productName);
-        });
-        quantityButtons.appendChild(increaseButton);
-        quantityButtons.appendChild(decreaseButton);
-        return quantityButtons;
-    }
-
-    // Function to create a remove button for a given product
-    function createRemoveButton(productName) {
-        var removeButton = document.createElement('button');
-        removeButton.innerText = 'X';
-        removeButton.classList.add('btn', 'btn-sm', 'btn-outline-danger', 'remove-from-cart');
-        removeButton.dataset.productname = productName;
-        removeButton.addEventListener('click', function () {
-            removeFromCart(productName);
-        });
-        return removeButton;
-    }
-
-    // Function to fetch stock data from JSON API
-    function fetchStockData() {
-        fetch("Stock.json")
-            .then(response => response.json())
-            .then(data => {
-                // Data loaded successfully
-                // Call function to update stock display
-                updateStockDisplay(data.productos);
-            })
-            .catch(error => {
-                console.error('Error fetching stock data:', error);
-            });
-    }
-
-    // Function to update stock display for each product
-    function updateStockDisplay(stockData) {
-        var cartItems = document.querySelectorAll('#cart-items li');
-        cartItems.forEach(item => {
-            var productName = item.dataset.productname;
-            var productStock = findProductStock(stockData, productName);
-            if (productStock !== undefined) {
-                var stockInfo = document.createElement('span');
-                stockInfo.classList.add('badge', 'bg-secondary', 'ms-2');
-                stockInfo.innerText = 'Stock: ' + productStock;
-                item.appendChild(stockInfo);
-            }
-        });
-    }
-
-    // Function to find stock for a specific product
-    function findProductStock(stockData, productName) {
-        var product = stockData.find(product => product.nombre === productName);
-        return product ? product.stock : undefined;
-    }
-
-    // Call fetchStockData when the document is loaded
-    document.addEventListener('DOMContentLoaded', function () {
-        fetchStockData();
+ // Function to create quantity buttons for a given product
+function createQuantityButtons(productName) {
+    var quantityButtons = document.createElement('div');
+    quantityButtons.classList.add('quantity-buttons');
+    var increaseButton = document.createElement('button');
+    increaseButton.innerText = '+';
+    increaseButton.classList.add('btn', 'btn-sm', 'btn-outline-primary', 'increase-quantity');
+    increaseButton.dataset.productname = productName;
+    increaseButton.addEventListener('click', function () {
+        increaseQuantity(productName);
     });
+    var decreaseButton = document.createElement('button');
+    decreaseButton.innerText = '-';
+    decreaseButton.classList.add('btn', 'btn-sm', 'btn-outline-primary', 'decrease-quantity');
+    decreaseButton.dataset.productname = productName;
+    decreaseButton.addEventListener('click', function () {
+        decreaseQuantity(productName);
+    });
+    var removeButton = createRemoveButton(productName);
+    quantityButtons.appendChild(increaseButton);
+    quantityButtons.appendChild(decreaseButton);
+    quantityButtons.appendChild(removeButton); // Agregar el botón de eliminar
+    return quantityButtons;
+}
 
-    // Fetch data from JSON file
-    fetch("Stock.json")
-        .then(response => response.json())
-        .then(data => {
-            // Update stock display for each product
-            document.getElementById('nombre').textContent = data['pan_completo_integral-stock'];
-            document.getElementById('hallulla-stock').textContent = data['Pan Hallulla integral'];
-            // Repite el mismo código para los otros productos
-        })
-        .catch(error => console.error('Error fetching stock data:', error));
+
+
+
+// Function to create a remove button for a given product
+function createRemoveButton(productName) {
+    var removeButton = document.createElement('button');
+    removeButton.innerText = 'X';
+    removeButton.classList.add('btn', 'btn-sm', 'btn-outline-danger', 'remove-from-cart');
+    removeButton.dataset.productname = productName;
+    removeButton.addEventListener('click', function () {
+        removeFromCart(productName);
+    });
+    return removeButton;
+}
+
+     // Función para obtener productos y su stock desde la API
+     function getProducts() {
+            fetch('https://raw.githubusercontent.com/ManuelBustamante-py/API-stock/main/Stock.json')
+                .then(response => response.json())
+                .then(data => {
+                    displayStock(data.productos);
+                })
+                .catch(error => {
+                    console.error('Error al obtener productos:', error);
+                });
+        }
+
+ // Función para mostrar el stock de los productos en la página
+ function displayStock(products) {
+            products.forEach(product => {
+                var stockElement = document.getElementById(product.nombre + '-stock');
+                if (stockElement) {
+                    stockElement.innerText = product.stock;
+                }
+            });
+        }
+
+        // Llamar a la función getProducts() para obtener los datos de los productos y mostrar el stock en la página
+        getProducts();
 
 </script>
 </body>

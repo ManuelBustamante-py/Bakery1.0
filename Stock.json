@@ -1,0 +1,49 @@
+{
+    "productos": [
+      {
+        "nombre": "pan_completo_integral-stock",
+        "stock": 50
+      },
+      {
+        "nombre": "Pan Hallulla integral",
+        "stock": 100
+      },
+    {
+        "nombre": "Pan de molde integral",
+        "stock": 200
+      },
+      {
+        "nombre": "Choco muffin",
+        "stock": 120
+    }
+,
+{
+        "nombre": "Muffin chocolate nuez",
+        "stock": 100
+    },
+{
+    
+        "nombre": "Muffin de vainilla chips",
+        "stock": 150
+},
+
+{
+    
+    "nombre": "Torta vainilla",
+    "stock": 24
+},
+
+{
+    
+    "nombre": "Torta rosada",
+    "stock": 15
+},
+    
+    {
+        
+        "nombre": "Torta chocolate",
+        "stock": 10
+    }
+    
+    ]
+}

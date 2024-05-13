@@ -471,7 +471,7 @@ function updateCart() {
 
     // Add event listeners to cart buttons
     document.addEventListener("DOMContentLoaded", function () {
-        // Add event listeners to "Agregar al carrito" buttons
+        // añadimos un listener para agregar productos al carrito, esta vez con jQuery
         $('.add-to-cart').on('click', function () {
     var productName = $(this).closest('.card').find('.card-title').text();
     var price = parseFloat($(this).closest('.card').find('.card-text').text().replace(/[^\d.]/g, ''));

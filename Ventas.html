@@ -119,6 +119,45 @@
     <!-- Page Header End -->
 
 
+
+
+<!-- Botón "Ver carrito" con icono de carrito -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal">
+    <i class="bi bi-cart-fill me-2"></i> Ver carrito
+</button>
+
+
+
+
+ <!-- Modal -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Carrito de compras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="cart-items" class="list-group mb-3">
+                    <!-- Aquí se agregarán los elementos de la lista del carrito -->
+                </ul>
+                <div id="cart-total" class="d-flex justify-content-between">
+                    <span>Total:</span>
+                    <span id="cart-total-amount">$0</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="checkout()">Pagar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
     <!-- Products Start -->
 <div class="container py-6 wow fadeInUp" data-wow-delay="0.1s">
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -230,20 +269,6 @@
     </div>
     <!-- Products End -->
 
-
-<!-- Carrito de compras -->
-<div id="cart" class="position-fixed top-0 end-0 p-3 bg-white border" style="max-width: 250px; display: none;">
-    <h5 class="fw-bold mb-3">Carrito de compras</h5>
-    <ul id="cart-items" class="list-group mb-3"></ul>
-    <div id="cart-total" class="d-flex justify-content-between">
-        <span>Total:</span>
-        <span id="cart-total-amount">$0</span>
-    </div>
-    <button id="checkout-btn" class="btn btn-primary mt-3">Pagar</button>
-</div>
-
-
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer my-6 mb-0 py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -331,19 +356,6 @@
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 
-
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/counterup/counterup.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-<!-- Template Javascript -->
-<script src="js/main.js"></script>
-
 <script>
     // Cart object to store selected products
     var cart = [];
@@ -366,20 +378,22 @@
     }
 
     // Function to update the cart UI
-    function updateCart() {
-        var cartItemsElement = document.getElementById('cart-items');
-        var cartTotalAmountElement = document.getElementById('cart-total-amount');
-        cartItemsElement.innerHTML = ''; // Clear previous cart items
-        var totalAmount = 0;
-        cart.forEach(product => {
-            var item = document.createElement('li');
-            item.classList.add('list-group-item');
-            item.innerText = product.name + ' x ' + product.quantity + ' - $' + (product.price * product.quantity);
-            cartItemsElement.appendChild(item);
-            totalAmount += product.price * product.quantity;
-        });
-        cartTotalAmountElement.innerText = '$' + totalAmount;
-    }
+function updateCart() {
+    var cartItemsElement = document.getElementById('cart-items');
+    var cartTotalAmountElement = document.getElementById('cart-total-amount');
+    cartItemsElement.innerHTML = ''; // Clear previous cart items
+    var totalAmount = 0;
+    cart.forEach(product => {
+        var item = document.createElement('li');
+        item.classList.add('list-group-item');
+        item.innerText = product.name + ' x ' + product.quantity + ' - $' + (product.price * product.quantity);
+        item.dataset.productname = product.name; // Guardar nombre del producto como atributo de datos
+        cartItemsElement.appendChild(item);
+        totalAmount += product.price * product.quantity;
+    });
+    cartTotalAmountElement.innerText = '$' + totalAmount;
+    addQuantityButtonsToCartItems(); // Agregar botones de cantidad
+}
 
     // Function to increase the quantity of a product in the cart
     function increaseQuantity(productName) {
@@ -401,16 +415,16 @@
 
     // Add event listeners to cart buttons
     document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        console.log('Botón seleccionado:', button);
-        button.addEventListener('click', function () {
-            console.log('Clic en el botón de agregar al carrito');
-            var productName = this.parentElement.querySelector('.card-title').innerText;
-            var price = parseFloat(this.parentElement.querySelector('.card-text').innerText.replace(/[^\d.]/g, ''));
-            addToCart(productName, price);
+        // Add event listeners to "Agregar al carrito" buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                var productName = this.parentElement.querySelector('.card-title').innerText;
+                var price = parseFloat(this.parentElement.querySelector('.card-text').innerText.replace(/[^\d.]/g, ''));
+                addToCart(productName, price);
+            });
         });
-    });
 
+        // Add event listeners to "Eliminar del carrito" buttons
         document.querySelectorAll('.remove-from-cart').forEach(button => {
             button.addEventListener('click', function () {
                 var productName = this.dataset.productname;
@@ -418,6 +432,7 @@
             });
         });
 
+        // Add event listeners to "Aumentar cantidad" buttons
         document.querySelectorAll('.increase-quantity').forEach(button => {
             button.addEventListener('click', function () {
                 var productName = this.dataset.productname;
@@ -425,6 +440,7 @@
             });
         });
 
+        // Add event listeners to "Disminuir cantidad" buttons
         document.querySelectorAll('.decrease-quantity').forEach(button => {
             button.addEventListener('click', function () {
                 var productName = this.dataset.productname;
@@ -436,50 +452,126 @@
         var cartButton = document.getElementById('checkout-btn');
         cartButton.addEventListener('click', function () {
             var cartElement = document.getElementById('cart');
-            if (cartElement.style.display === 'none') {
-                cartElement.style.display = 'block';
-            } else {
-                cartElement.style.display = 'none';
-            }
+            cartElement.style.display = cartElement.style.display === 'none' ? 'block' : 'none';
         });
     });
 
 
 
-// Función para actualizar el carrito de compras
+
+// Función para agregar botones de aumento y disminución a cada elemento del carrito
+function addQuantityButtonsToCartItems() {
+    var cartItems = document.querySelectorAll('#cart-items li');
+    cartItems.forEach(item => {
+        var productName = item.dataset.productname;
+        var quantityButtons = createQuantityButtons(productName);
+        item.appendChild(quantityButtons);
+    });
+}
+
+
+// Function to update the cart UI
 function updateCart() {
     var cartItemsElement = document.getElementById('cart-items');
     var cartTotalAmountElement = document.getElementById('cart-total-amount');
-    cartItemsElement.innerHTML = ''; // Limpiar elementos previos del carrito
+    cartItemsElement.innerHTML = ''; // Clear previous cart items
     var totalAmount = 0;
     cart.forEach(product => {
         var item = document.createElement('li');
         item.classList.add('list-group-item');
         item.innerText = product.name + ' x ' + product.quantity + ' - $' + (product.price * product.quantity);
+        item.dataset.productname = product.name; // Guardar nombre del producto como atributo de datos
+        var quantityButtons = createQuantityButtons(product.name); // Agregar botones de cantidad
+        item.appendChild(quantityButtons); // Agregar botones al elemento de la lista
         cartItemsElement.appendChild(item);
         totalAmount += product.price * product.quantity;
     });
     cartTotalAmountElement.innerText = '$' + totalAmount;
-
-    // Mostrar el carrito
-    var cartElement = document.getElementById('cart');
-    cartElement.style.display = 'block';
 }
 
-// Obtener todos los botones "Agregar al carrito"
-var addToCartButtons = document.querySelectorAll('.add-to-cart');
-
-// Agregar evento de clic a cada botón
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        var productName = this.dataset.productname;
-        var productPrice = parseFloat(this.dataset.price);
-        addToCart(productName, productPrice);
-        updateCart(); // Actualizar el carrito y mostrarlo
+// Función para crear botones de cantidad para un producto dado
+function createQuantityButtons(productName) {
+    var quantityButtons = document.createElement('div');
+    quantityButtons.classList.add('quantity-buttons');
+    var increaseButton = document.createElement('button');
+    increaseButton.innerText = '+';
+    increaseButton.classList.add('btn', 'btn-sm', 'btn-outline-primary', 'increase-quantity');
+    increaseButton.dataset.productname = productName;
+    increaseButton.addEventListener('click', function () {
+        increaseQuantity(productName);
     });
-});
+    var decreaseButton = document.createElement('button');
+    decreaseButton.innerText = '-';
+    decreaseButton.classList.add('btn', 'btn-sm', 'btn-outline-primary', 'decrease-quantity');
+    decreaseButton.dataset.productname = productName;
+    decreaseButton.addEventListener('click', function () {
+        decreaseQuantity(productName);
+    });
+    quantityButtons.appendChild(increaseButton);
+    quantityButtons.appendChild(decreaseButton);
+    return quantityButtons;
+}
+
+
+
+
+// Function to update the cart UI
+function updateCart() {
+    var cartItemsElement = document.getElementById('cart-items');
+    var cartTotalAmountElement = document.getElementById('cart-total-amount');
+    cartItemsElement.innerHTML = ''; // Clear previous cart items
+    var totalAmount = 0;
+    cart.forEach(product => {
+        var item = document.createElement('li');
+        item.classList.add('list-group-item');
+        item.dataset.productname = product.name; // Guardar nombre del producto como atributo de datos
+
+        var quantityButtons = createQuantityButtons(product.name); // Crear botones de cantidad
+        var removeButton = createRemoveButton(product.name); // Crear botón de eliminación
+
+        // Crear contenedor div para botones
+        var buttonsContainer = document.createElement('div');
+        buttonsContainer.classList.add('d-flex', 'align-items-center');
+
+        // Agregar botones al contenedor en el orden deseado
+        buttonsContainer.appendChild(quantityButtons); // Botones de cantidad
+        buttonsContainer.appendChild(removeButton); // Botón de eliminación
+
+        // Crear texto para mostrar el nombre y la cantidad del producto
+        var productInfo = document.createTextNode(product.name + ' x ' + product.quantity + ' - $' + (product.price * product.quantity));
+
+        // Agregar texto y contenedor de botones al elemento li
+        item.appendChild(productInfo);
+        item.appendChild(buttonsContainer);
+
+        cartItemsElement.appendChild(item);
+        totalAmount += product.price * product.quantity;
+    });
+    cartTotalAmountElement.innerText = '$' + totalAmount;
+}
+
+// Función para crear un botón de eliminación para un producto dado
+function createRemoveButton(productName) {
+    var removeButton = document.createElement('button');
+    removeButton.innerText = 'X';
+    removeButton.classList.add('btn', 'btn-sm', 'btn-outline-danger', 'remove-from-cart');
+    removeButton.dataset.productname = productName;
+    removeButton.addEventListener('click', function () {
+        removeFromCart(productName);
+    });
+    return removeButton;
+}
+
+
+
+
+
+
+
 
 </script>
+
+
 
 </body>
 </body>

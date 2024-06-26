@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +10,10 @@
     /* Estilos opcionales para mejorar la apariencia del formulario */
     body {
         font-family: Arial, sans-serif;
-        background-image: url("img/ImageLogin.jpg"); /* Cambia la ruta por el nombre de tu imagen si está en la misma carpeta */
-        background-size: cover;
+        background-image: url("{% static 'img/ImageLogin.jpg' %}"); /* Ruta al archivo de imagen estático */
+        background-size: 10;
         background-position: center;
+        
     }
     .container {
         max-width: 400px;
@@ -74,33 +77,12 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     // Verificar si el usuario y la contraseña son válidos
     if (username === 'ADMIN' && password === 'BAKERYoficial2024$') {
         // Inicio de sesión exitoso, redirigir a la página principal (index.html)
-        window.location.href = 'index.html'; // Redireccionar a index.html
+        window.location.href = "{% url 'index' %}"; // Redireccionar a la página index.html definida en urls.py
 
-        
-    } else {
-        // Mostrar un mensaje de error si el usuario o la contraseña son incorrectos
-        var errorMessage = document.getElementById('errorMessage');
-        errorMessage.textContent = 'Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.';
-    }
-});
+    } else if (username === 'PROFESOR' && password === 'JOSUE2024') {
+        // Inicio de sesión exitoso para el profesor
+        window.location.href = "{% url 'index' %}"; // Redireccionar a la página index.html definida en urls.py
 
-
-
-//agregamos otras llaves de acceso
-
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evitar que el formulario se envíe por defecto
-
-    // Obtener los valores de usuario y contraseña ingresados por el usuario
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-
-    // Verificar si el usuario y la contraseña son válidos
-    if (username === 'PROFESOR' && password === 'JOSUE2024') {
-        // Inicio de sesión exitoso, redirigir a la página principal (index.html)
-        window.location.href = 'index.html'; // Redireccionar a index.html
-
-        
     } else {
         // Mostrar un mensaje de error si el usuario o la contraseña son incorrectos
         var errorMessage = document.getElementById('errorMessage');

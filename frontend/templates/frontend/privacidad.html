@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacidad</title>
     <style>
         body {
             background-color: black;
@@ -12,10 +14,10 @@
 </head>
 <body>
 
-    <img src="C:\Users\manu_\OneDrive\Escritorio\baker-1.0.0\baker-1.0.0\img\nft.gif" alt="Tu GIF">
+    <img src="{% static 'img/nft.gif' %}" alt="Tu GIF">
 
     <audio controls autoplay loop>
-        <source src="C:\Users\manu_\OneDrive\Escritorio\baker-1.0.0\baker-1.0.0\mp3\Nyan Cat! [Official].mp3" type="audio/mp3">
+        <source src="{% static 'mp3/Nyan Cat! [Official].mp3' %}" type="audio/mp3">
     </audio>
 
 </body>

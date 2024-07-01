@@ -21,4 +21,5 @@ urlpatterns = [
     path('api/obtener_stock/', obtener_stock, name='obtener_stock'),
     path('api/procesar_pago/', procesar_pago, name='procesar_pago'),
     path('api/enviar_resumen/', enviar_resumen, name='enviar_resumen'),
+     path('registro/', views.registro_usuario, name='registro_usuario'),
 ]

@@ -46,6 +46,27 @@
         font-size: 14px;
         margin-top: 5px;
     }
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+    }
+    button {
+        appearance: auto;
+        display: inline-block;
+        text-align: center;
+        cursor: default;
+        box-sizing: border-box;
+        background-color: buttonface;
+        padding-block: 1px;
+        padding-inline: 6px;
+        border-width: 2px;
+        border-style: outset;
+        border-color: buttonborder;
+        border-image: initial;
+        margin: 0em;
+        color: buttontext;
+        border-radius: 4px;
+    }
 </style>
 </head>
 <body>
@@ -61,7 +82,10 @@
             <label for="password">Contraseña</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <button type="submit">Iniciar sesión</button>
+        <div class="button-group">
+            <button type="submit">Iniciar sesión</button>
+            <button type="button" onclick="window.location.href='{% url 'registro_usuario' %}'">Registrarse</button>
+        </div>
         <div id="errorMessage" class="error-message"></div>
     </form>
 </div>

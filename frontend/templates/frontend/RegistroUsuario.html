@@ -1,13 +1,15 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registro Administrador</title>
+<title>Registro Usuarios</title>
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #612525;
+        background-color: #502929;
         background-size: 10;
         background-position: center;
     }
@@ -99,7 +101,7 @@
 <body>
 
 <div class="container">
-    <h2>Registro Administrador</h2>
+    <h2>Portal de registro</h2>
     <form id="registerForm">
         <div class="form-group">
             <label for="firstName">Nombre</label>
@@ -118,7 +120,7 @@
             <input type="tel" id="phone" name="phone" required>
         </div>
         <div class="form-group">
-            <label for="adminToken">AdminToken</label>
+            <label for="adminToken">Password</label>
             <input type="password" id="adminToken" name="adminToken" required>
         </div>
         <div class="button-group">
@@ -132,7 +134,7 @@
 <div id="successModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Te has registrado con éxito, Administrador.</p>
+        <p>Te has registrado con éxito.</p>
     </div>
 </div>
 

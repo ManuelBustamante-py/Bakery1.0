@@ -49,7 +49,7 @@
     .button-group {
         display: flex;
         justify-content: space-between;
-    }
+    };
     button {
         appearance: auto;
         display: inline-block;
@@ -84,7 +84,7 @@
         </div>
         <div class="button-group">
             <button type="submit">Iniciar sesión</button>
-            <button type="button" onclick="window.location.href='{% url 'registro_usuario' %}'">Registrarse</button>
+            <button type="button" onclick="location.href='{% url 'ingreso_admin' %}'">Retroceder</button>
         </div>
         <div id="errorMessage" class="error-message"></div>
     </form>

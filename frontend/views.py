@@ -194,22 +194,23 @@ def contact_view(request):
 
 def contact(request):
     if request.method == 'POST':
-        # Obtener datos del formulario
+        
         nombre = request.POST.get('nombre')
         email = request.POST.get('email')
         asunto = request.POST.get('asunto')
         mensaje = request.POST.get('mensaje')
         
-        # Validar que todos los campos estén llenos y que el correo contenga '@'
+        
         if not nombre or not email or not asunto or not mensaje or '@' not in email:
             return render(request, 'frontend/contact.html', {'error_message': 'Por favor completa todos los campos correctamente.'})
         
-        # Guardar en la base de datos usando el modelo MensajeContacto
+        
         mensaje_contacto = MensajeContacto(nombre=nombre, email=email, asunto=asunto, mensaje=mensaje)
         mensaje_contacto.save()
         
-        # Redirigir a una nueva URL después de guardar en la base de datos
+        
         return redirect(reverse('contact') + '?success=true')
     
-    # Si la solicitud no es POST, renderizar el template de contacto
+    
     return render(request, 'frontend/contact.html')
+

@@ -119,21 +119,19 @@
 
 
 
-<!-- Modal de Éxito -->
-<div class="modal fade" id="modal-exito" tabindex="-1" role="dialog" aria-labelledby="modal-exito-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<!-- Modal de mensaje de éxito -->
+<div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-exito-label">¡Mensaje Enviado!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="modalMensajeLabel">Mensaje Enviado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Su mensaje ha sido enviado correctamente.</p>
+                <p id="mensajeModal">Mensaje enviado correctamente.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -267,20 +265,24 @@
 
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#contactForm').on('submit', function(event) {
-                event.preventDefault();  // Evita el envío por defecto del formulario
+            $('#formMensajeContacto').on('submit', function(event) {
+                event.preventDefault();  // Evitar el envío tradicional del formulario
+                var formData = $(this).serialize();
+                
                 $.ajax({
                     type: 'POST',
-                    url: '{% url 'contact' %}',  // Ruta a tu función de vista en Django
-                    data: $('#contactForm').serialize(),
-                    dataType: 'json',
+                    url: '/enviar-mensaje-contacto/',  // URL de la vista Django
+                    data: formData,
                     success: function(response) {
-                        $('#modal-exito').modal('show');  // Muestra el modal de éxito
+                        // Mostrar mensaje de éxito (por ejemplo, usando un modal)
+                        $('#modalMensaje').modal('show');
+                        $('#mensajeModal').text(response.mensaje);
                     },
-                    error: function(response) {
-                        console.log('Error al enviar el formulario.');
+                    error: function(error) {
+                        console.log(error);
                     }
                 });
             });

@@ -11,13 +11,11 @@ from django.http import JsonResponse
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from .models import MensajeContacto
-from .forms import ContactForm
 from django.shortcuts import render, redirect
 from .models import MensajeContacto
 from django.contrib import messages
 from django.http import JsonResponse
-from .forms import MensajeContactoForm
-
+from .forms import ContactForm 
 def index(request):
     return render(request, 'frontend/index.html')
 
@@ -169,12 +167,12 @@ def enviar_mensaje_contacto(request):
         mensaje_contacto = MensajeContacto(nombre=nombre, email=email, asunto=asunto, mensaje=mensaje)
         mensaje_contacto.save()
         
-        # Mostrar mensaje de éxito
-        messages.success(request, 'Mensaje enviado correctamente.')
-        
-        # Redirigir a una página de éxito
-        return redirect('contacto_exitoso')  # Redirige a la URL de éxito
-        
+        # Preparar respuesta JSON
+        response_data = {
+            'mensaje': 'Mensaje enviado correctamente.'
+        }
+        return JsonResponse(response_data)
+    
     # Si no es POST, renderiza el formulario
     return render(request, 'contact.html')
 
@@ -194,10 +192,10 @@ def contact_view(request):
 
 def contact(request):
     if request.method == 'POST':
-        form = MensajeContactoForm(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             form.save()  # Guarda el mensaje en la base de datos
             return JsonResponse({'success': True})
     else:
-        form = MensajeContactoForm()
+        form = ContactForm()
     return render(request, 'contact.html', {'form': form})

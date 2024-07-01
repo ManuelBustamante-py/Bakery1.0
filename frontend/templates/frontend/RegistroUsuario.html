@@ -125,7 +125,7 @@
         </div>
         <div class="button-group">
             <button type="submit">Registrar</button>
-            <button type="button" onclick="window.location.href='{% url 'login' %}'">Retroceder</button>
+            <button id="btnRetroceder" type="button">Retroceder</button>
         </div>
     </form>
 </div>
@@ -166,6 +166,10 @@ document.getElementById('registerForm').addEventListener('submit', function(even
             }
         }
     }
+});
+
+document.getElementById('btnRetroceder').addEventListener('click', function() {
+    window.location.href = "{% url 'login' %}";
 });
 </script>
 

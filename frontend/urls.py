@@ -21,5 +21,5 @@ urlpatterns = [
     path('api/procesar_pago/', views.procesar_pago, name='procesar_pago'),
     path('api/enviar_resumen/', views.enviar_resumen, name='enviar_resumen'),
     path('registro/', views.registro_usuario, name='registro'),
-    path('contact/', views.contacto, name='contacto'),
+    path('contact/', views.contact, name='contact'),  # Asumiendo que `contact` es el nombre de la función que renderiza la plantilla HTML
 ]

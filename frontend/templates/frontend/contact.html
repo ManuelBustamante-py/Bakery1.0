@@ -117,29 +117,30 @@
     <!-- Page Header End -->
 
 <!-- Formulario de Contacto -->
-<form id="contactForm">
+<form id="contactForm" action="{% url 'admin:frontend_mensajecontacto_add' %}" method="post">
+    {% csrf_token %}
     <div class="row g-3">
         <div class="col-md-6">
             <div class="form-floating">
-                <input type="text" class="form-control" id="name" placeholder="Su nombre">
+                <input type="text" class="form-control" id="name" name="nombre" placeholder="Su nombre">
                 <label for="name">Su nombre</label>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-floating">
-                <input type="email" class="form-control" id="email" placeholder="Su correo">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Su correo">
                 <label for="email">Su correo</label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating">
-                <input type="text" class="form-control" id="subject" placeholder="Asunto">
+                <input type="text" class="form-control" id="subject" name="asunto" placeholder="Asunto">
                 <label for="subject">Asunto</label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Deja un mensaje aquí" id="message" style="height: 200px"></textarea>
+                <textarea class="form-control" id="message" name="mensaje" placeholder="Deja un mensaje aquí" style="height: 200px"></textarea>
                 <label for="message">Mensaje</label>
             </div>
         </div>

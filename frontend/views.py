@@ -3,7 +3,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-from django.shortcuts import render
 from .models import Producto
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -11,6 +10,9 @@ from django.core.mail import send_mail
 from django.http import JsonResponse
 import json
 from django.core.exceptions import ObjectDoesNotExist
+from .models import MensajeContacto
+from .forms import ContactForm
+from django.shortcuts import render, redirect
 from .models import MensajeContacto
 
 def index(request):
@@ -175,3 +177,16 @@ def enviar_mensaje_contacto(request):
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Método no permitido"}, status=405)
+
+def contact_view(request):
+    if request.method == 'POST':
+        # Procesar el formulario enviado
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Guardar los datos del formulario en la base de datos
+            form.save()
+            return redirect('ruta_de_exito')  # Redirigir a una página de éxito o a donde necesites
+    else:
+        form = ContactForm()  # Instancia del formulario vacío para mostrarlo
+
+    return render(request, 'template.html', {'form': form})

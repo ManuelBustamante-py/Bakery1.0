@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.http import JsonResponse
 import json
 from django.core.exceptions import ObjectDoesNotExist
+from .models import MensajeContacto
 
 def index(request):
     return render(request, 'frontend/index.html')
@@ -149,3 +150,28 @@ def enviar_resumen(request):
 
 def registro_usuario(request):
     return render(request, 'RegistroUsuario.html')
+
+
+@csrf_exempt
+def enviar_mensaje_contacto(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            nombre = data.get('name')
+            email = data.get('email')
+            asunto = data.get('subject')
+            mensaje = data.get('message')
+
+            # Guardar el mensaje en la base de datos
+            mensaje_contacto = MensajeContacto(nombre=nombre, email=email, asunto=asunto, mensaje=mensaje)
+            mensaje_contacto.save()
+
+            return JsonResponse({"success": True})
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Error en el formato JSON de la solicitud"}, status=400)
+
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Método no permitido"}, status=405)

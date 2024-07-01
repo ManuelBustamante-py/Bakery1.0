@@ -14,6 +14,9 @@ from .models import MensajeContacto
 from .forms import ContactForm
 from django.shortcuts import render, redirect
 from .models import MensajeContacto
+from django.contrib import messages
+from django.http import JsonResponse
+from .forms import MensajeContactoForm
 
 def index(request):
     return render(request, 'frontend/index.html')
@@ -157,26 +160,23 @@ def registro_usuario(request):
 @csrf_exempt
 def enviar_mensaje_contacto(request):
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            nombre = data.get('name')
-            email = data.get('email')
-            asunto = data.get('subject')
-            mensaje = data.get('message')
-
-            # Guardar el mensaje en la base de datos
-            mensaje_contacto = MensajeContacto(nombre=nombre, email=email, asunto=asunto, mensaje=mensaje)
-            mensaje_contacto.save()
-
-            return JsonResponse({"success": True})
-
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Error en el formato JSON de la solicitud"}, status=400)
-
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-
-    return JsonResponse({"error": "Método no permitido"}, status=405)
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        asunto = request.POST.get('asunto')
+        mensaje = request.POST.get('mensaje')
+        
+        # Guardar en la base de datos
+        mensaje_contacto = MensajeContacto(nombre=nombre, email=email, asunto=asunto, mensaje=mensaje)
+        mensaje_contacto.save()
+        
+        # Mostrar mensaje de éxito
+        messages.success(request, 'Mensaje enviado correctamente.')
+        
+        # Redirigir a una página de éxito
+        return redirect('contacto_exitoso')  # Redirige a la URL de éxito
+        
+    # Si no es POST, renderiza el formulario
+    return render(request, 'contact.html')
 
 def contact_view(request):
     if request.method == 'POST':
@@ -190,3 +190,14 @@ def contact_view(request):
         form = ContactForm()  # Instancia del formulario vacío para mostrarlo
 
     return render(request, 'template.html', {'form': form})
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = MensajeContactoForm(request.POST)
+        if form.is_valid():
+            form.save()  # Guarda el mensaje en la base de datos
+            return JsonResponse({'success': True})
+    else:
+        form = MensajeContactoForm()
+    return render(request, 'contact.html', {'form': form})

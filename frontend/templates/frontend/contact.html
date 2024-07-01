@@ -116,8 +116,35 @@
     </div>
     <!-- Page Header End -->
 
+
+
+
+<!-- Modal de Éxito -->
+<div class="modal fade" id="modal-exito" tabindex="-1" role="dialog" aria-labelledby="modal-exito-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-exito-label">¡Mensaje Enviado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Su mensaje ha sido enviado correctamente.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <!-- Formulario de Contacto -->
-<form id="contactForm" action="{% url 'admin:frontend_mensajecontacto_add' %}" method="post">
+<form id="contactForm" method="post">
     {% csrf_token %}
     <div class="row g-3">
         <div class="col-md-6">
@@ -237,6 +264,30 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('#contactForm').on('submit', function(event) {
+                event.preventDefault();  // Evita el envío por defecto del formulario
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url 'contact' %}',  // Ruta a tu función de vista en Django
+                    data: $('#contactForm').serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#modal-exito').modal('show');  // Muestra el modal de éxito
+                    },
+                    error: function(response) {
+                        console.log('Error al enviar el formulario.');
+                    }
+                });
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

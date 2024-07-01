@@ -146,3 +146,6 @@ def enviar_resumen(request):
         return JsonResponse({"message": "Endpoint para enviar resúmenes de compra. Envía una solicitud POST para enviar un resumen."})
 
     return JsonResponse({"error": "Método no permitido"}, status=405)
+
+def registro_usuario(request):
+    return render(request, 'RegistroUsuario.html')

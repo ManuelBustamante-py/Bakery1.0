@@ -10,7 +10,6 @@ urlpatterns = [
     path('inicio/', views.index, name='index'),
     path('about/', views.about, name='about'),
     path('admin/', views.admin_page, name='admin_page'),
-    path('contact/', views.enviar_mensaje_contacto, name='enviar_mensaje_contacto'),  # Cambiado a 'enviar_mensaje_contacto'
     path('privacidad/', views.privacidad, name='privacidad'),
     path('product/', views.product, name='product'),
     path('service/', views.service, name='service'),
@@ -22,5 +21,5 @@ urlpatterns = [
     path('api/procesar_pago/', views.procesar_pago, name='procesar_pago'),
     path('api/enviar_resumen/', views.enviar_resumen, name='enviar_resumen'),
     path('registro/', views.registro_usuario, name='registro'),
-    path('contacto-exitoso/', views.contacto_exitoso, name='contacto_exitoso'),  # Agregada URL para éxito
+    path('contact/', views.contacto, name='contacto'),
 ]

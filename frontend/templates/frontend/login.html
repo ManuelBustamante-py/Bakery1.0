@@ -84,7 +84,7 @@
         </div>
         <div class="button-group">
             <button type="submit">Iniciar sesión</button>
-            <button type="button" onclick="location.href='{% url 'registro' %}'">Registrarse</button>
+            <button id="btnRegistrarse" type="button">Registrarse</button>
         </div>
         <div id="errorMessage" class="error-message"></div>
     </form>
@@ -112,6 +112,10 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         var errorMessage = document.getElementById('errorMessage');
         errorMessage.textContent = 'Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.';
     }
+});
+
+document.getElementById('btnRegistrarse').addEventListener('click', function() {
+    window.location.href = "{% url 'registro' %}";
 });
 </script>
 

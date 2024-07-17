@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuarios</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .bg-register {
+            margin: 0;
+            padding: 120px 0 60px 0;
+            background: url('{% static "img/carousel-1.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            position: relative;
+            zoom: 115%
+        }
+        .bg-register::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .container {
+            max-width: 400px;
+            margin: 60px auto 0;
+            position: relative;
+            z-index: 1;
+        }
+        .register-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .help-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .button-group button {
+            width: 48%;
+            padding: 10px 0;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: #EAA636;
+            color: white;
+        }
+        .button-group button:hover {
+            background-color: #f6b750;
+        }
+        .full-width-button {
+            margin-top: 15px;
+        }
+        .full-width-button button {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: #EAA636;
+            color: white;
+        }
+        .full-width-button button:hover {
+            background-color: #f6b750;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-register">
+    <div class="container">
+        <div class="register-box">
+            <h2>Registro de Usuario</h2>
+            <form method="post" id="registerForm">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <div>
+                    <label for="{{ form.username.id_for_label }}">Nombre de usuario:</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="alert alert-danger">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="alert alert-danger">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.password1.id_for_label }}">Contraseña:</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="alert alert-danger">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.password2.id_for_label }}">Confirmar contraseña:</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="alert alert-danger">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="button-group">
+                    <button type="submit">Registrar</button>
+                    <button id="btnLogin" type="button">Iniciar sesión</button>
+                </div>
+                <div class="full-width-button">
+                    <button id="btnRetroceder" type="button">Volver</button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('btnRetroceder').addEventListener('click', function() {
+    window.location.href = "{% url 'index' %}";
+});
+document.getElementById('btnLogin').addEventListener('click', function() {
+    window.location.href = "{% url 'login' %}";
+});
+</script>
+
+</body>
+</html>

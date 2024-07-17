@@ -77,10 +77,16 @@
 
 <body>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
+        .body {
+        margin: 0;
+        padding: 120px 0 60px 0; /* Aumenta el padding superior */
+        background: url('{% static "img/carousel-1.jpg" %}') no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        position: relative;
+        zoom: 115%
+    }
+    
     
         .top-bar {
             background-color: #343a40; /* Color de fondo oscuro */
@@ -120,23 +126,83 @@
         border-color: #e0e0e0 !important;
     }
 
-    .button-group {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
 
-    .button-group a {
-        width: 48%;
-        padding: 10px 0;
-        font-size: 1rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        text-align: center;
-        text-decoration: none;
-    }
+    .button-group .btn-half {
+
+width: 48%;
+
+}
+
+
+
+.button-group .btn-full {
+
+width: 100%;
+
+}
+
+
+
+.button-group .btn-primary {
+
+background-color: #EAA636;
+
+color: white;
+
+}
+
+
+
+.button-group .btn-danger {
+
+background-color: #dc3545;
+
+color: white;
+
+}
+
+
+
+.button-group a:hover {
+
+opacity: 0.9;
+
+}
+
+
+    .button-group {
+
+display: flex;
+
+flex-wrap: wrap;
+
+justify-content: space-between;
+
+margin-top: 20px;
+
+}
+
+.button-group a {
+
+padding: 10px 0;
+
+font-size: 1rem;
+
+border: none;
+
+border-radius: 4px;
+
+cursor: pointer;
+
+transition: background-color 0.3s;
+
+text-align: center;
+
+text-decoration: none;
+
+margin-bottom: 10px;
+
+}
 
     .button-group .btn-primary {
         background-color: #EAA636;
@@ -222,7 +288,7 @@
 <!-- Navbar End -->
 
 <!-- Perfil Start -->
-<div class="container-xxl py-6 bg-profile">
+<div class="body">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
@@ -255,9 +321,14 @@
                         </div>
                     </div>
                     <div class="button-group">
-                        <a class="btn-primary" href="{% url 'login' %}">Iniciar sesión</a>
-                        <a class="btn-danger" href="{% url 'logout' %}">Cerrar sesión</a>
-                        <a class="btn-primary" href="{% url 'historial_compras' %}">Ver Historial de Compras</a>
+
+                            <a class="btn-primary btn-half" href="{% url 'login' %}">Iniciar sesión</a>
+                          
+                            <a class="btn-danger btn-half" href="{% url 'logout' %}">Cerrar sesión</a>
+                          
+                            <a class="btn-primary btn-full" href="{% url 'historial_compras' %}">Ver Historial de Compras</a>
+                          
+                          </div>
                     </div>
                 </div>
             </div>
